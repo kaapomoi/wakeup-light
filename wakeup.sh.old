@@ -1,0 +1,26 @@
+
+
+url="192.168.50.10:80/api/v1/basic"
+
+brightness=255
+
+r=32
+g=24
+b=16
+
+while [ $r -lt 255 ]
+do
+hex_r=$(printf '%x' $r)
+hex_g=$(printf '%x' $g)
+hex_b=$(printf '%x' $b)
+hex_color="$hex_r""$hex_g""$hex_b"
+curl -X POST $url -H 'Content-Type: application/json' -d '{"mode":1,"color":"'$hex_color'","brightness":'$brightness'}}'
+sleep 5
+r=$[$r+1]
+g=$[$g+1]
+b=$[$b+1]
+if [ $brightness -lt 250 ]; then
+    brightness=$[$brightness+4]
+fi
+done
+
